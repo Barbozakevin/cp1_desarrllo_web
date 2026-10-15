@@ -102,3 +102,91 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+form {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+  margin: auto;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #94a3b8;
+  border-radius: 8px;
+  font: inherit;
+}
+
+form textarea {
+  min-height: 90px;
+}
+
+form button {
+  background: #15803d;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+form [role="status"] {
+  font-weight: bold;
+}
+
+form {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+  margin: auto;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #94a3b8;
+  border-radius: 8px;
+  font: inherit;
+}
+
+form textarea {
+  min-height: 90px;
+}
+
+form button {
+  background: #15803d;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+form [role="status"] {
+  font-weight: bold;
+}

@@ -1,3 +1,4 @@
+import Formulario from "./Formulario";
 import {
   BrowserRouter,
   Routes,
@@ -81,7 +82,7 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<Inicio />} />
-          <Route path="/registro" element={<Registro />} />
+          <Route path="/registro" element={<Formulario />} />
           <Route path="/lista" element={<Lista />} />
           <Route
             path="*"
