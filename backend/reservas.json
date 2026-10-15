@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fcc72386-c5dc-4c8c-8c3f-18fc8df9c0c1",
+    "nombre": "Carlos",
+    "email": "carlos@gmail.com",
+    "descripcion": "Reserva de clase de futbol",
+    "fecha": "2026-10-20",
+    "categoria": "Futbol"
+  }
+]
