@@ -36,14 +36,6 @@ function Inicio() {
           Encuentra tu espacio, elige una fecha y reserva tu lugar. En
           SportClass, organizarte para hacer lo que te gusta es más fácil.
         </p>
-        <div className="hero-actions">
-          <Link className="button button-primary" to="/registro">
-            Reservar una clase <span aria-hidden="true">→</span>
-          </Link>
-          <Link className="button button-secondary" to="/lista">
-            Ver mis reservas <span aria-hidden="true">→</span>
-          </Link>
-        </div>
         <div className="hero-benefits">
           <span><b aria-hidden="true">✓</b> Fácil de reservar</span>
           <span><b aria-hidden="true">✓</b> A tu ritmo</span>

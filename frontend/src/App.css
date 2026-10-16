@@ -105,45 +105,6 @@ main {
   line-height: 1.65;
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 28px;
-}
-
-.button {
-  min-height: 58px;
-  padding: 0 25px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  border-radius: 999px;
-  font-weight: 700;
-  transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0, 139, 129, 0.18);
-}
-
-.button-primary {
-  background: #079b8e;
-  color: #fff;
-}
-
-.button-secondary {
-  background: #079b8e;
-  color: #fff;
-}
-
-.button span {
-  font-size: 20px;
-  line-height: 1;
-}
-
 .hero-benefits {
   display: flex;
   flex-wrap: wrap;
@@ -665,14 +626,6 @@ main {
 
   .hero-copy > p {
     font-size: 16px;
-  }
-
-  .hero-actions {
-    display: grid;
-  }
-
-  .button {
-    min-height: 52px;
   }
 
   .hero-card {
