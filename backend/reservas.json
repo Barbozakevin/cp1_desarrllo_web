@@ -14,5 +14,53 @@
     "descripcion": "primera clase",
     "fecha": "2026-10-16",
     "categoria": "Futbol"
+  },
+  {
+    "id": "80ab4d0e-0701-48b4-bae1-d4d31ee61f63",
+    "nombre": "ana perez",
+    "email": "ejemplo@gmail.com",
+    "descripcion": "wadefrg",
+    "fecha": "2026-10-17",
+    "categoria": "Futbol"
+  },
+  {
+    "id": "4f63cb14-d928-4378-aedc-7ad670682b3c",
+    "nombre": "ejemplo",
+    "email": "fghghghgh@gmail.com",
+    "descripcion": "ffgghgh",
+    "fecha": "2026-10-25",
+    "categoria": "Natacion"
+  },
+  {
+    "id": "f2c0554b-718b-4639-a061-2801cd74f390",
+    "nombre": "mateo",
+    "email": "cualquiera@hotmail.com",
+    "descripcion": "1234",
+    "fecha": "2026-10-27",
+    "categoria": "Baloncesto"
+  },
+  {
+    "id": "ec12a5ca-c14c-47b9-9fa0-09112d57d4b7",
+    "nombre": "erick",
+    "email": "erick@hotmail.com",
+    "descripcion": "prueba",
+    "fecha": "2026-10-25",
+    "categoria": "Baloncesto"
+  },
+  {
+    "id": "27cc36b0-4db8-44b9-b811-dc7d573f68ea",
+    "nombre": "tommy",
+    "email": "ggg@hotmail.com",
+    "descripcion": "12345",
+    "fecha": "2026-10-25",
+    "categoria": "Natacion"
+  },
+  {
+    "id": "26e49984-b08c-48d9-8703-13cfd9f68fdd",
+    "nombre": "laura",
+    "email": "123@gmail.com",
+    "descripcion": "22233",
+    "fecha": "2026-10-24",
+    "categoria": "Baloncesto"
   }
 ]

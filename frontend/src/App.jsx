@@ -1,4 +1,5 @@
 import Formulario from "./Formulario";
+import ListaReservas from "./ListaReservas";
 import {
   BrowserRouter,
   Routes,
@@ -83,7 +84,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/registro" element={<Formulario />} />
-          <Route path="/lista" element={<Lista />} />
+          <Route path="/lista" element={<ListaReservas />} />
           <Route
             path="*"
             element={<p>Página no encontrada. Vuelve al inicio.</p>}
