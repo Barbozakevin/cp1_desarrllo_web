@@ -73,8 +73,8 @@ Registrar los resultados reales de estas pruebas:
 
 ## Integrantes y aportes
 
-- [Nombre]: backend.
-- [Nombre]: rutas, menú, inicio y estilos.
-- [Nombre]: formulario, validaciones y mensajes.
+- [Kevin Barboza]: Backend: Express, rutas, GET/POST, almacenamiento
+- [Cristhian Gonzalez]: rutas, menú, inicio y estilos.
+- [Christopher Aguiño]: formulario, validaciones y mensajes.
 - Erick Minda: integración de la lista con la API,
   pruebas, README e informe.
