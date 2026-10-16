@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const inicial = {
   nombre: "",
@@ -17,6 +18,9 @@ const horarios = {
   Noche: ["18:00", "19:00", "20:00", "21:00"],
 };
 
+const clases = ["Futbol", "Natacion", "Baloncesto"];
+const categorias = ["Principiante", "Intermedio", "Avanzado"];
+
 function fechaLocal() {
   const hoy = new Date();
   hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset());
@@ -24,10 +28,54 @@ function fechaLocal() {
 }
 
 export default function Formulario() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const editando = Boolean(id);
   const [datos, setDatos] = useState(inicial);
   const [mensaje, setMensaje] = useState("");
   const [enviando, setEnviando] = useState(false);
+  const [cargando, setCargando] = useState(editando);
+  const [errorCarga, setErrorCarga] = useState("");
   const fechaRef = useRef(null);
+
+  useEffect(() => {
+    if (!id) return undefined;
+
+    let activa = true;
+
+    fetch(`http://localhost:3001/api/reservas/${encodeURIComponent(id)}`)
+      .then(async (respuesta) => {
+        const resultado = await respuesta.json();
+        if (!respuesta.ok) {
+          throw new Error(resultado.mensaje || "No se pudo cargar la reserva.");
+        }
+        return resultado;
+      })
+      .then((reserva) => {
+        if (!activa) return;
+        const clase = reserva.clase || (clases.includes(reserva.categoria) ? reserva.categoria : "");
+        setDatos({
+          nombre: reserva.nombre || "",
+          email: reserva.email || "",
+          clase,
+          categoria: categorias.includes(reserva.categoria) ? reserva.categoria : "",
+          fecha: reserva.fecha || "",
+          franja: reserva.franja || "",
+          hora: reserva.hora || "",
+          descripcion: reserva.descripcion || "",
+        });
+      })
+      .catch((error) => {
+        if (activa) setErrorCarga(error.message);
+      })
+      .finally(() => {
+        if (activa) setCargando(false);
+      });
+
+    return () => {
+      activa = false;
+    };
+  }, [id]);
 
   function cambiar(evento) {
     const { name, value } = evento.target;
@@ -51,7 +99,11 @@ export default function Formulario() {
   async function guardar(evento) {
     evento.preventDefault();
 
-    if (Object.values(datos).some((valor) => !valor.trim())) {
+    const camposObligatorios = editando
+      ? [datos.nombre, datos.email, datos.clase, datos.fecha, datos.descripcion]
+      : Object.values(datos);
+
+    if (camposObligatorios.some((valor) => !valor.trim())) {
       setMensaje("Completa todos los campos para continuar.");
       return;
     }
@@ -65,16 +117,26 @@ export default function Formulario() {
     setMensaje("");
 
     try {
-      const respuesta = await fetch("http://localhost:3001/api/reservas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datos),
-      });
+      const respuesta = await fetch(
+        editando
+          ? `http://localhost:3001/api/reservas/${encodeURIComponent(id)}`
+          : "http://localhost:3001/api/reservas",
+        {
+          method: editando ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(datos),
+        }
+      );
 
       const resultado = await respuesta.json();
 
       if (!respuesta.ok) {
         setMensaje(resultado.mensaje || "No se pudo guardar la reserva.");
+        return;
+      }
+
+      if (editando) {
+        navigate("/lista");
         return;
       }
 
@@ -90,11 +152,24 @@ export default function Formulario() {
   return (
     <section className="page-section reservation-page">
       <div className="page-heading">
-        <h1>Nueva reserva</h1>
-        <p>Complete los datos para solicitar su lugar en la clase.</p>
+        <h1>{editando ? "Editar reserva" : "Nueva reserva"}</h1>
+        <p>
+          {editando
+            ? "Actualiza los datos de la reserva y guarda los cambios."
+            : "Complete los datos para solicitar su lugar en la clase."}
+        </p>
       </div>
 
-      <form className="reservation-form" onSubmit={guardar} noValidate>
+      {cargando && <p role="status">Cargando reserva...</p>}
+
+      {errorCarga && (
+        <div className="form-load-error" role="alert">
+          <p>{errorCarga}</p>
+          <Link to="/lista">Volver a mis reservas</Link>
+        </div>
+      )}
+
+      {!cargando && !errorCarga && <form className="reservation-form" onSubmit={guardar} noValidate>
         <div className="field">
           <label htmlFor="nombre">Nombre del participante</label>
           <input
@@ -145,7 +220,7 @@ export default function Formulario() {
               name="categoria"
               value={datos.categoria}
               onChange={cambiar}
-              required
+              required={!editando}
             >
               <option value="">Seleccione...</option>
               <option value="Principiante">Principiante</option>
@@ -163,7 +238,7 @@ export default function Formulario() {
               id="fecha"
               name="fecha"
               type="date"
-              min={fechaLocal()}
+              min={editando ? undefined : fechaLocal()}
               value={datos.fecha}
               onChange={cambiar}
               required
@@ -184,6 +259,7 @@ export default function Formulario() {
                 key={franja}
                 type="button"
                 aria-pressed={datos.franja === franja}
+                disabled={enviando}
                 onClick={() => {
                   setDatos((actuales) => ({ ...actuales, franja, hora: "" }));
                   setMensaje("");
@@ -203,8 +279,8 @@ export default function Formulario() {
             name="hora"
             value={datos.hora}
             onChange={cambiar}
-            disabled={!datos.franja}
-            required
+            disabled={!datos.franja || enviando}
+            required={!editando}
           >
             <option value="">
               {datos.franja ? "Seleccione una hora..." : "Elija primero un horario"}
@@ -228,13 +304,14 @@ export default function Formulario() {
         </div>
 
         <button className="submit-button" type="submit" disabled={enviando}>
-          {enviando ? "Guardando..." : "Reservar clase"}
+          {enviando ? "Guardando..." : editando ? "Guardar cambios" : "Reservar clase"}
         </button>
 
         {mensaje && (
           <p className="form-message" role="status">{mensaje}</p>
         )}
-      </form>
+        {editando && <Link className="cancel-edit-link" to="/lista">Cancelar</Link>}
+      </form>}
     </section>
   );
 }

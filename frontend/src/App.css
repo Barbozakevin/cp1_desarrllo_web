@@ -504,6 +504,75 @@ main {
   color: #435f5d;
 }
 
+.reservation-actions {
+  margin-top: 16px;
+  padding-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-top: 1px solid #edf2f1;
+}
+
+.edit-reservation-button,
+.delete-reservation-button {
+  min-height: 36px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d6e8e4;
+  border-radius: 8px;
+  background: #f0f8f6;
+  color: #26716d;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.edit-reservation-button:hover {
+  background: #e2f4ef;
+}
+
+.delete-reservation-button {
+  border-color: #f0d4cf;
+  background: #fff8f6;
+  color: #9b463a;
+}
+
+.delete-reservation-button:hover:not(:disabled) {
+  background: #fcebe7;
+}
+
+.delete-reservation-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.form-load-error {
+  padding: 18px;
+  border: 1px solid #f2d7d2;
+  border-radius: 10px;
+  background: #fff8f6;
+  color: #9b463a;
+}
+
+.form-load-error p {
+  margin: 0 0 8px;
+}
+
+.form-load-error a,
+.cancel-edit-link {
+  color: #087d77;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.cancel-edit-link {
+  justify-self: center;
+  font-size: 14px;
+}
+
 .empty-state {
   padding: 48px 24px;
   text-align: center;

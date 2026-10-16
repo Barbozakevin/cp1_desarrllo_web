@@ -72,6 +72,7 @@ export default function App() {
           <Route path="/" element={<Inicio />} />
           <Route path="/registro" element={<Formulario />} />
           <Route path="/lista" element={<ListaReservas />} />
+          <Route path="/reservas/:id/editar" element={<Formulario />} />
           <Route
             path="*"
             element={<p className="not-found">Página no encontrada. Vuelve al inicio.</p>}

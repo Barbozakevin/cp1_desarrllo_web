@@ -43,15 +43,18 @@ Mantener ambas terminales funcionando.
 ## API
 
 - GET /api/reservas: consultar reservas.
+- GET /api/reservas/:id: consultar una reserva.
 - POST /api/reservas: crear una reserva.
+- PUT /api/reservas/:id: actualizar una reserva existente.
+- DELETE /api/reservas/:id: eliminar una reserva existente.
 
 Campos del registro:
 nombre, email, descripcion, fecha y categoria.
 
 ## Flujo de datos
 
-Formulario React → petición POST → API Express →
-reservas.json → petición GET → lista en React.
+Formulario React → peticiones POST/PUT/DELETE → API Express →
+reservas.json → peticiones GET → lista en React.
 
 ## Validaciones y mensajes
 

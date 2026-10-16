@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function nombreClase(reserva) {
   const clase = reserva.clase || reserva.categoria;
@@ -10,10 +11,22 @@ function nombreClase(reserva) {
   return nombres[clase] || clase;
 }
 
+async function leerRespuestaApi(respuesta) {
+  try {
+    return await respuesta.json();
+  } catch {
+    throw new Error(
+      "El backend no reconoce esta operación. Reinícialo desde la carpeta backend y vuelve a intentarlo."
+    );
+  }
+}
+
 export default function ListaReservas() {
   const [reservas, setReservas] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
+  const [errorAccion, setErrorAccion] = useState("");
+  const [eliminandoId, setEliminandoId] = useState("");
 
   async function consultarReservas() {
     const respuesta = await fetch("http://localhost:3001/api/reservas");
@@ -40,6 +53,32 @@ export default function ListaReservas() {
       setError(error.message);
     } finally {
       setCargando(false);
+    }
+  }
+
+  async function eliminarReserva(id) {
+    if (!window.confirm("¿Seguro que quieres eliminar esta reserva? Esta acción no se puede deshacer.")) {
+      return;
+    }
+
+    setErrorAccion("");
+    setEliminandoId(id);
+
+    try {
+      const respuesta = await fetch(`http://localhost:3001/api/reservas/${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      });
+      const resultado = await leerRespuestaApi(respuesta);
+
+      if (!respuesta.ok) {
+        throw new Error(resultado.mensaje || "No se pudo eliminar la reserva.");
+      }
+
+      setReservas((actuales) => actuales.filter((reserva) => reserva.id !== id));
+    } catch (error) {
+      setErrorAccion(error.message || "No se pudo conectar con el servidor.");
+    } finally {
+      setEliminandoId("");
     }
   }
 
@@ -76,8 +115,12 @@ export default function ListaReservas() {
 
       {error && (
         <p className="list-message error-message" role="alert">
-          No se pudieron cargar las reservas. Verifica el backend.
+          {error}
         </p>
+      )}
+
+      {errorAccion && (
+        <p className="list-message error-message" role="alert">{errorAccion}</p>
       )}
 
       {!cargando && !error && reservas.length === 0 && (
@@ -113,6 +156,19 @@ export default function ListaReservas() {
               {reserva.descripcion && (
                 <p className="reservation-description">{reserva.descripcion}</p>
               )}
+              <div className="reservation-actions">
+                <Link className="edit-reservation-button" to={`/reservas/${encodeURIComponent(reserva.id)}/editar`}>
+                  Editar reserva
+                </Link>
+                <button
+                  className="delete-reservation-button"
+                  type="button"
+                  onClick={() => eliminarReserva(reserva.id)}
+                  disabled={Boolean(eliminandoId)}
+                >
+                  {eliminandoId === reserva.id ? "Eliminando..." : "Eliminar reserva"}
+                </button>
+              </div>
             </article>
           ))}
         </div>
