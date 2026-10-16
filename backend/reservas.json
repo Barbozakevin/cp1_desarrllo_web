@@ -62,5 +62,21 @@
     "descripcion": "22233",
     "fecha": "2026-10-24",
     "categoria": "Baloncesto"
+  },
+  {
+    "id": "00b62250-56c0-44d4-ac0f-55e225482d4f",
+    "nombre": "kevin",
+    "email": "kevin@gmail.com",
+    "descripcion": "Reserva de clase de futbol",
+    "fecha": "2026-10-20",
+    "categoria": "Futbol"
+  },
+  {
+    "id": "229b334e-4793-4ee0-ad89-df46226d9bb2",
+    "nombre": "kevin",
+    "email": "kbarbozac@unemi.edu.ec",
+    "descripcion": "rhrherheher",
+    "fecha": "2026-10-07",
+    "categoria": "Futbol"
   }
 ]

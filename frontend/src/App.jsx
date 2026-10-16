@@ -11,10 +11,13 @@ import "./App.css";
 
 function Menu() {
   return (
-    <header>
-      <Link className="logo" to="/">SportClass</Link>
+    <header className="site-header">
+      <Link className="logo" to="/" aria-label="SportClass, ir al inicio">
+        <img src="/sportclass-icon.png" alt="" />
+        <span>Sport<span>Class</span></span>
+      </Link>
 
-      <nav>
+      <nav aria-label="Navegación principal">
         <NavLink to="/" end>Inicio</NavLink>
         <NavLink to="/registro">Reservar</NavLink>
         <NavLink to="/lista">Reservas</NavLink>
@@ -25,52 +28,44 @@ function Menu() {
 
 function Inicio() {
   return (
-    <section className="bienvenida">
-      <span className="etiqueta">ACTÍVATE CON SPORTCLASS</span>
-      <h1>Tu próxima clase deportiva empieza aquí</h1>
-      <p>
-        Elige tu actividad favorita y registra tu reserva
-        de forma sencilla.
-      </p>
-
-      <Link className="boton" to="/registro">
-        Reservar una clase
-      </Link>
-
-      <div className="tarjetas">
-        <article>
-          <h2>Fútbol</h2>
-          <p>Entrena y mejora tus habilidades en equipo.</p>
-        </article>
-
-        <article>
-          <h2>Natación</h2>
-          <p>Desarrolla tu resistencia y técnica en el agua.</p>
-        </article>
-
-        <article>
-          <h2>Baloncesto</h2>
-          <p>Practica tus lanzamientos y coordinación.</p>
-        </article>
+    <section className="hero">
+      <div className="hero-copy">
+        <span className="eyebrow">MUÉVETE A TU MANERA</span>
+        <h1>Tu próxima clase deportiva empieza aquí</h1>
+        <p>
+          Encuentra tu espacio, elige una fecha y reserva tu lugar. En
+          SportClass, organizarte para hacer lo que te gusta es más fácil.
+        </p>
+        <div className="hero-actions">
+          <Link className="button button-primary" to="/registro">
+            Reservar una clase <span aria-hidden="true">→</span>
+          </Link>
+          <Link className="button button-secondary" to="/lista">
+            Ver mis reservas <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+        <div className="hero-benefits">
+          <span><b aria-hidden="true">✓</b> Fácil de reservar</span>
+          <span><b aria-hidden="true">✓</b> A tu ritmo</span>
+        </div>
       </div>
-    </section>
-  );
-}
 
-function Registro() {
-  return (
-    <section className="panel">
-      <h1>Reserva tu clase</h1>
-      <p>Aquí se integrará el formulario de reservas.</p>
-    </section>
-  );
-}
-
-function Lista() {
-  return (
-    <section className="panel">
-      <h1>Reservas registradas</h1>
-      <p>Aquí se integrará la consulta de reservas de la API.</p>
+      <aside className="hero-card" aria-label="Ventajas de reservar una clase">
+        <div className="pulse-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M5 25h10l6-15 9 29 6-14h7" />
+          </svg>
+        </div>
+        <span className="eyebrow">HOY ES UN BUEN DÍA</span>
+        <h2>Haz tiempo para ti</h2>
+        <ul>
+          <li><span aria-hidden="true">✓</span> Elige cuándo</li>
+          <li><span aria-hidden="true">✓</span> Escoge tu clase</li>
+          <li><span aria-hidden="true">✓</span> Disfruta el momento</li>
+        </ul>
+        <p className="hero-note"><span aria-hidden="true">✦</span> Tu próxima aventura te espera</p>
+      </aside>
+      <div className="hero-orbit" aria-hidden="true" />
     </section>
   );
 }
@@ -87,12 +82,12 @@ export default function App() {
           <Route path="/lista" element={<ListaReservas />} />
           <Route
             path="*"
-            element={<p>Página no encontrada. Vuelve al inicio.</p>}
+            element={<p className="not-found">Página no encontrada. Vuelve al inicio.</p>}
           />
         </Routes>
       </main>
 
-      <footer>SportClass · Reserva de clases deportivas</footer>
+      <footer className="site-footer">SportClass <span>·</span> Reserva de clases deportivas</footer>
     </BrowserRouter>
   );
 }

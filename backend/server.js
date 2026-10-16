@@ -38,9 +38,12 @@ app.post("/api/reservas", (req, res) => {
   const {
     nombre,
     email,
+    clase,
     descripcion,
     fecha,
-    categoria
+    categoria,
+    franja,
+    hora
   } = req.body || {};
 
   const campos = [
@@ -78,6 +81,18 @@ app.post("/api/reservas", (req, res) => {
       fecha: fecha.trim(),
       categoria: categoria.trim()
     };
+
+    if (typeof clase === "string" && clase.trim()) {
+      nuevaReserva.clase = clase.trim();
+    }
+
+    if (typeof franja === "string" && franja.trim()) {
+      nuevaReserva.franja = franja.trim();
+    }
+
+    if (typeof hora === "string" && hora.trim()) {
+      nuevaReserva.hora = hora.trim();
+    }
 
     reservas.push(nuevaReserva);
 
